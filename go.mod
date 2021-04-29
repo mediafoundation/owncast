@@ -3,6 +3,7 @@ module github.com/owncast/owncast
 go 1.14
 
 require (
+	github.com/AvraamMavridis/randomcolor v0.0.0-20180822172341-208aff70bf2c
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/amalfra/etag v0.0.0-20190921100247-cafc8de96bc5
 	github.com/aws/aws-sdk-go v1.38.33

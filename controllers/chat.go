@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/owncast/owncast/core"
+	"github.com/owncast/owncast/core/user"
 	"github.com/owncast/owncast/router/middleware"
 	log "github.com/sirupsen/logrus"
 )
@@ -28,4 +29,32 @@ func GetChatMessages(w http.ResponseWriter, r *http.Request) {
 			InternalErrorHandler(w, err)
 		}
 	}
+}
+
+// RegisterAnonymousChatUser will register a new user.
+func RegisterAnonymousChatUser(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	if r.Method != POST {
+		WriteSimpleResponse(w, false, r.Method+" not supported")
+		return
+	}
+
+	type registerAnonymousUserResponse struct {
+		AccessToken string `json:"accessToken"`
+		DisplayName string `json:"displayName"`
+	}
+
+	err, newUser := user.CreateAnonymousUser()
+	if err != nil {
+		WriteSimpleResponse(w, false, err.Error())
+		return
+	}
+
+	response := registerAnonymousUserResponse{
+		AccessToken: newUser.AccessToken,
+		DisplayName: newUser.DisplayName,
+	}
+
+	WriteResponse(w, response)
 }

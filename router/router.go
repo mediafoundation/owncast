@@ -61,6 +61,9 @@ func Start() error {
 	// return the list of video variants available
 	http.HandleFunc("/api/video/variants", controllers.GetVideoStreamOutputVariants)
 
+	// register a new chat user
+	http.HandleFunc("/api/chat/register", controllers.RegisterAnonymousChatUser)
+
 	// Authenticated admin requests
 
 	// Current inbound broadcaster

@@ -14,6 +14,7 @@ import (
 	"github.com/owncast/owncast/config"
 	"github.com/owncast/owncast/core"
 	"github.com/owncast/owncast/core/data"
+	"github.com/owncast/owncast/core/user"
 	"github.com/owncast/owncast/metrics"
 	"github.com/owncast/owncast/router"
 	"github.com/owncast/owncast/utils"
@@ -99,6 +100,8 @@ func main() {
 	if err != nil {
 		log.Fatalln("failed to open database", err)
 	}
+
+	user.SetupUsers()
 
 	if *newStreamKey != "" {
 		if err := data.SetStreamKey(*newStreamKey); err != nil {
